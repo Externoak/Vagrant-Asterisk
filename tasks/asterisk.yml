@@ -9,7 +9,7 @@
     name: asterisk
     state: stopped
 
-- name: copy consul_ui files
+- name: copy files
   command: cp -r /home/vagrant/asterisk/{{ item }} /etc/asterisk/
   with_items:
    - "sip.conf"
@@ -18,6 +18,19 @@
    - "modules.conf"
    - "iax.conf"
    - "voicemail.conf"
+
+
+- unarchive:
+    src: https://www.voipnovatos.es/voces/voipnovatos-extra-sounds-es-alaw-1.4.tar.gz
+    dest: /usr/share/asterisk/sounds/
+    remote_src: True
+
+- unarchive:
+    src: https://www.voipnovatos.es/voces/voipnovatos-core-sounds-es-alaw-1.4.tar.gz
+    dest: /usr/share/asterisk/sounds/
+    remote_src: True
+
+
 
 - name: Restarting asterisk
   service:
