@@ -19,6 +19,11 @@
    - "iax.conf"
    - "voicemail.conf"
 
+- name: copy main server
+  command: cp -r /home/vagrant/asterisk/{{ item }} /etc/asterisk/iax.conf
+  with_items:
+  - "iax2.conf"
+  when: inventory_hostname == "Asterisk2"
 
 - unarchive:
     src: https://www.voipnovatos.es/voces/voipnovatos-extra-sounds-es-alaw-1.4.tar.gz
@@ -29,7 +34,6 @@
     src: https://www.voipnovatos.es/voces/voipnovatos-core-sounds-es-alaw-1.4.tar.gz
     dest: /usr/share/asterisk/sounds/
     remote_src: True
-
 
 
 - name: Restarting asterisk
